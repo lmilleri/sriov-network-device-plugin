@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"fmt"
+
 	vdpa "github.com/k8snetworkplumbingwg/govdpa/pkg/kvdpa"
 )
 
@@ -25,5 +27,12 @@ func GetVdpaProvider() VdpaProvider {
 }
 
 func (defaultVdpaProvider) GetVdpaDeviceByPci(pciAddr string) (vdpa.VdpaDevice, error) {
-	return vdpa.GetVdpaDeviceByPci(pciAddr)
+	vdpaDevices, err := vdpa.GetVdpaDevicesByPciAddress(pciAddr)
+	if err != nil {
+		return nil, err
+	}
+	if len(vdpaDevices) == 0 {
+		return nil, fmt.Errorf("no vdpa device associated to pciAddress %v", pciAddr)
+	}
+	return vdpaDevices[0], nil
 }
