@@ -80,3 +80,5 @@ replace (
 	github.com/containernetworking/cni => github.com/containernetworking/cni v0.8.1
 	github.com/gogo/protobuf => github.com/gogo/protobuf v1.3.2
 )
+
+replace github.com/k8snetworkplumbingwg/govdpa v0.1.3 => github.com/lmilleri/govdpa v0.1.7
