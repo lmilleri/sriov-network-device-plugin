@@ -130,6 +130,8 @@ func (rm *resourceManager) initServers() error {
 
 		for index := range rc.SelectorObjs {
 			devices := dp.GetDevices(rc, index)
+			glog.Infof("# of devices: %d", len(devices))
+			glog.Infof("devices: %v", devices)
 			partialFilteredDevices, err := dp.GetFilteredDevices(devices, rc, index)
 			if err != nil {
 				glog.Errorf("initServers(): error getting filtered devices for config %+v: %q", rc, err)

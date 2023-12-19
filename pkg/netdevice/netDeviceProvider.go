@@ -141,11 +141,14 @@ func (np *netDeviceProvider) GetFilteredDevices(devices []types.HostDevice,
 		vdpaDevices := make([]types.HostDevice, 0)
 		for _, dev := range filteredDevice {
 			vdpaDev := dev.(types.PciNetDevice).GetVdpaDevice()
+			glog.Infof("vdpaDev: %v", vdpaDev)
 			if vdpaDev == nil {
 				continue
 			}
 			if vType := vdpaDev.GetType(); vType != types.VdpaInvalidType && vType == nf.VdpaType {
 				vdpaDevices = append(vdpaDevices, dev)
+			} else {
+				glog.Infof("discarded: type = ", vdpaDev.GetType())
 			}
 		}
 		filteredDevice = vdpaDevices
